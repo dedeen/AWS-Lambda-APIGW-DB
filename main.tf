@@ -4,26 +4,18 @@
         -- Dan Edeen, dan@dsblue.net, 2022  --
 	   
 */
-provider "aws" {
-  alias = "usw2"
-  region = "us-west-2"
-
-  default_tags {
-    tags = {
-      Owner = "dan-via-terraform"
-    }
-  }
-}
-
 variable "policy_name"{
   type = string
   default = "LambdaAPIGatewayPolicy"
 }
 
 resource "aws_iam_policy" "policy" {
-  name        	= var.policy_name
-  description 	= "IAM Policy for Lambda Setup"
-  tags          = "dan-via-terraform"
+  name          = var.policy_name
+  description   = "IAM Policy for Lambda Setup"
 
-  policy = file("lambda_api_gw_policy.json")
+  policy        = file("lambda_api_gw_policy.json")
+
+  tags          = {
+    Owner       = "dan-via-terraform"
+  }
 }
