@@ -1,4 +1,4 @@
-*  Terraform to build a lambda function, API gateway, and neccessary IAM policies. 
+/*  Terraform to build a lambda function, API gateway, and neccessary IAM policies. 
       Use at your own peril, and be mindful of the AWS costs of 
       building this environment.  
         -- Dan Edeen, dan@dsblue.net, 2022  --
