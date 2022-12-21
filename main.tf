@@ -27,6 +27,9 @@ resource "aws_iam_policy" "policy" {
 resource "aws_iam_role" "role" {
   name			= var.role_name
   description		= "IAM Role for Lambda Function"
+  tags          	= {
+    Owner       = "dan-via-terraform"
+  }
 #  assume_role_policy 	= "${aws_iam_policy.policy.arn}"
   assume_role_policy = <<EOF
   {
@@ -44,5 +47,10 @@ resource "aws_iam_role" "role" {
   }
 EOF
 }	
-	
+
+# Policy attachment to the role
+resource "aws_iam_role_policy_attachment" "policy_attach" {
+	role 		= aws_iam_role.role
+	policy_arn 	= aws_iam_policy.policy.arn
+}
 	
