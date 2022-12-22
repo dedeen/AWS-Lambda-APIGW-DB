@@ -58,7 +58,7 @@ resource "aws_iam_role_policy_attachment" "policy_attach" {
 resource "aws_lambda_function" "test_lambda_py" {
 	filename	= "function-py.zip"
 	function_name	= "LambdaFunctionOverHttps-py"
-	role		= arn:aws:iam::500112433998:role/LambdaAPIGatewayRole
+	role		= aws_iam_role.role.arn
 	handler		= "LambdaFunctionOverHttps.handler"
 	runtime		= "python3.9"
 	#environment
@@ -68,7 +68,7 @@ resource "aws_lambda_function" "test_lambda_py" {
 resource "aws_lambda_function" "test_lambda_js" {
 	filename	= "function-js.zip"
 	function_name	= "LambdaFunctionOverHttps-js"
-	role		= arn:aws:iam::500112433998:role/LambdaAPIGatewayRole
+	role		= aws_iam_role.role.arn
 	handler		= "LambdaFunctionOverHttps.handler"
 	runtime		= "nodejs16.x"
 	#environment
