@@ -59,7 +59,7 @@ resource "aws_lambda_function" "test_lambda_py" {
 	filename	= "function-py.zip"
 	function_name	= "LambdaFunctionOverHttps-py"
 	role		= aws_iam_role.role.arn
-	handler		= "LambdaFunctionOverHttps.handler"
+	handler		= "LambdaFunctionOverHttps-py.handler"
 	runtime		= "python3.9"
 	#environment
 }
@@ -69,7 +69,7 @@ resource "aws_lambda_function" "test_lambda_js" {
 	filename	= "function-js.zip"
 	function_name	= "LambdaFunctionOverHttps-js"
 	role		= aws_iam_role.role.arn
-	handler		= "LambdaFunctionOverHttps.handler"
+	handler		= "LambdaFunctionOverHttps-js.handler"
 	runtime		= "nodejs16.x"
 	#environment
 }
