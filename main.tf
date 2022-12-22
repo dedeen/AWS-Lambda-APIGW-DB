@@ -59,7 +59,7 @@ resource "aws_lambda_function" "test_lambda" {
 	filename	= "function.zip"
 	function_name	= "LambdaFunctionOverHttps"
 	role		= aws_iam_role.role.arn
-	handler		= "LambdaFunctionOverHttps.handler"
+	handler		= "index.handler"
 	runtime		= "nodejs16.x"
 	#environment
 }
