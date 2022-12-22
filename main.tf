@@ -54,3 +54,26 @@ resource "aws_iam_role_policy_attachment" "policy_attach" {
 	policy_arn 	= aws_iam_policy.policy.arn
 }
 	
+# Create lambda function (python) from local zipped function 
+resource "aws_lambda_function" "test_lambda_py" {
+	filename	= "function-py.zip"
+	function_name	= "LambdaFunctionOverHttps-py"
+	role		= arn:aws:iam::500112433998:role/LambdaAPIGatewayRole
+	handler		= "LambdaFunctionOverHttps.handler"
+	runtime		= "python3.9"
+	#environment
+}
+
+# Create lambda function (node.js) from local zipped function 
+resource "aws_lambda_function" "test_lambda_js" {
+	filename	= "function-js.zip"
+	function_name	= "LambdaFunctionOverHttps-js"
+	role		= arn:aws:iam::500112433998:role/LambdaAPIGatewayRole
+	handler		= "LambdaFunctionOverHttps.handler"
+	runtime		= "nodejs16.x"
+	#environment
+}
+
+
+	
+	
