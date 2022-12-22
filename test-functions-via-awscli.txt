@@ -1,0 +1,5 @@
+aws lambda invoke --function-name LambdaFunctionOverHttps-js \
+--payload file://input.txt outputfile.txt --cli-binary-format raw-in-base64-out
+
+aws lambda invoke --function-name LambdaFunctionOverHttps-py \
+--payload file://input.txt outputfile.txt --cli-binary-format raw-in-base64-out
