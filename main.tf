@@ -64,7 +64,7 @@ resource "aws_lambda_function" "test_lambda" {
 	#environment
 }
 
-$ Create a rest api
+# Create a rest api
 resource "aws_api_gateway_rest_api" "created_api" {
   name = "DynamoDBOps"
 }
