@@ -79,15 +79,16 @@ resource "aws_api_gateway_resource" "DynamoDBManager" {
   path_part   = "dynamodbmanager"	# must be lowercase version of resource name above
   rest_api_id = aws_api_gateway_rest_api.CreatedAPI.id
 }
-/*
+
 # Create an HTTP Post method
-resource "aws_api_gateway_method" "http_post_method" {	
+resource "aws_api_gateway_method" "HTTPPostMethod" {	
   authorization = "NONE"
   http_method   = "POST"
-  resource_id   = aws_api_gateway_resource.created_resource.id
-  rest_api_id   = aws_api_gateway_rest_api.created_api.id
+  resource_id   = aws_api_gateway_resource.DynamoDBManager.id
+  rest_api_id   = aws_api_gateway_rest_api.CreatedAPI.id
 }
 
+/*
 # Add the lambda integration
 resource "aws_api_gateway_integration" "lambda_integration" {
   http_method = aws_api_gateway_method.http_post_method.http_method
