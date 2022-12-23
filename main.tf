@@ -65,7 +65,7 @@ resource "aws_lambda_function" "test_lambda" {
 }
 
 # Create a REST API for Lambda function
-resource "aws_api_gateway_rest_api" "created_api" {
+resource "aws_api_gateway_rest_api" "CreatedAPI" {
   name 			= "DynamoDBOps"
   description		= "DynamoDB-Dans_API"
   endpoint_configuration {
@@ -74,10 +74,10 @@ resource "aws_api_gateway_rest_api" "created_api" {
 }
 
 # Create a resource for the REST API
-resource "aws_api_gateway_resource" "created_resource" {
+resource "aws_api_gateway_resource" "CreatedResource" {
   parent_id   = aws_api_gateway_rest_api.created_api.root_resource_id
-  path_part   = "/"
-  rest_api_id = aws_api_gateway_rest_api.created_api.id
+  path_part   = "createdresource"	# must be lowercase version of above
+  rest_api_id = aws_api_gateway_rest_api.CreatedAPI.id
 }
 /*
 # Create an HTTP Post method
