@@ -101,7 +101,7 @@ resource "aws_api_gateway_integration" "lambda_integration" {
   type        = "AWS_PROXY"   # lets API GW pass req to backend lambda function
   #uri 	      = aws_lambda_function.test_lambda.invoke_arn
   #uri 	      = aws_lambda_function.test_lambda.arn
-  uri 	      = aws_lambda_function.main.arn
+  uri 	      = "arn:aws:lambda:us-west-2:500112433998:function:LambdaFunctionOverHttps"
 }
 
 
