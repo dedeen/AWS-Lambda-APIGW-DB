@@ -75,7 +75,7 @@ resource "aws_api_gateway_rest_api" "CreatedAPI" {
 
 # Create a resource for the REST API
 resource "aws_api_gateway_resource" "CreatedResource" {
-  parent_id   = aws_api_gateway_rest_api.created_api.root_resource_id
+  parent_id   = aws_api_gateway_rest_api.CreatedAPI.root_resource_id
   path_part   = "createdresource"	# must be lowercase version of above
   rest_api_id = aws_api_gateway_rest_api.CreatedAPI.id
 }
