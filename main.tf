@@ -64,7 +64,7 @@ resource "aws_lambda_function" "test_lambda" {
 	#environment
 }
 
-# Create a rest api for Lambda function
+# Create a REST API for Lambda function
 resource "aws_api_gateway_rest_api" "created_api" {
   name 			= "DynamoDBOps"
   description		= "DynamoDB-Dans_API"
@@ -73,5 +73,28 @@ resource "aws_api_gateway_rest_api" "created_api" {
   }
 }
 
-	
+# Create a resource for the REST API
+resource "aws_api_gateway_resource" "created_resource" {
+  parent_id   = aws_api_gateway_rest_api.created_api.example.root_resource_id
+  path_part   = "/"
+  rest_api_id = aws_api_gateway_rest_api.created_api.id
+}
+
+# Create an HTTP Post method
+resource "aws_api_gateway_method" "http_post_method" {	
+  authorization = "NONE"
+  http_method   = "POST"
+  resource_id   = aws_api_gateway_resource.created_resource.id
+  rest_api_id   = aws_api_gateway_rest_api.created_api.id
+}
+
+# Add the lambda integration
+resource "aws_api_gateway_integration" "lambda_integration" {
+  http_method = aws_api_gateway_method.http_post_method.http_method
+  resource_id = aws_api_gateway_resource.created_resource.id
+  rest_api_id = aws_api_gateway_rest_api.created_api.id
+  type        = "LAMBDA"
+}
+
+  
 	
