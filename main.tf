@@ -88,15 +88,20 @@ resource "aws_api_gateway_method" "HTTPPostMethod" {
   rest_api_id   = aws_api_gateway_rest_api.CreatedAPI.id
 }
 
-/*
+
 # Add the lambda integration
+#variable "myregion" {}
+#variable "accountId" {}
+
 resource "aws_api_gateway_integration" "lambda_integration" {
-  http_method = aws_api_gateway_method.http_post_method.http_method
-  resource_id = aws_api_gateway_resource.created_resource.id
-  rest_api_id = aws_api_gateway_rest_api.created_api.id
+  http_method = aws_api_gateway_method.HTTPPostMethod.http_method
+  resource_id = aws_api_gateway_resource.DynamoDBManager.id
+  rest_api_id = aws_api_gateway_rest_api.CreatedAPI.id
+  integration_http_method = "POST"
   type        = "AWS_PROXY"   # lets API GW pass req to backend lambda function
+  uri 	      = aws_lambda_function.lambda.invoke_arn
 }
-*/
+
 
   
 	
