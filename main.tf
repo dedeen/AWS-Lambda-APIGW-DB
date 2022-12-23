@@ -55,7 +55,7 @@ resource "aws_iam_role_policy_attachment" "policy_attach" {
 }
 	
 # Create lambda function (node.js) from local zipped function 
-resource "aws_lambda_function" "test_lambda" {
+resource "aws_lambda_function" "LambdaFunctionOverHttps" {
 	filename	= "function.zip"
 	function_name	= "LambdaFunctionOverHttps"
 	role		= aws_iam_role.role.arn
