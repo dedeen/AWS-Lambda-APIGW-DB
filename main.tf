@@ -79,7 +79,7 @@ resource "aws_api_gateway_resource" "created_resource" {
   path_part   = "/"
   rest_api_id = aws_api_gateway_rest_api.created_api.id
 }
-
+/*
 # Create an HTTP Post method
 resource "aws_api_gateway_method" "http_post_method" {	
   authorization = "NONE"
@@ -95,6 +95,7 @@ resource "aws_api_gateway_integration" "lambda_integration" {
   rest_api_id = aws_api_gateway_rest_api.created_api.id
   type        = "AWS_PROXY"   # lets API GW pass req to backend lambda function
 }
+*/
 
   
 	
