@@ -1,3 +1,11 @@
+aws lambda create-function --function-name LambdaFunctionOverHttps \
+--zip-file fileb://function.zip --handler index.handler --runtime nodejs16.x \
+--role arn:aws:iam::500112433998:role/lambda-apigateway-role
+
+500112433998
+arn:aws:iam::500112433998:role/lambda-apigateway-role
+
+
 Terraform
 ==========
 api:1at1ecifs2:
