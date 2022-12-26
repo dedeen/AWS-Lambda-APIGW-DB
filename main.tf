@@ -112,7 +112,7 @@ resource "aws_api_gateway_method_response" "response_200" {
   status_code = "200"
   response_models = {
     "application/json" = "Empty"
-  }
+    }
 }
 
 resource "aws_api_gateway_integration_response" "integration_response" {
