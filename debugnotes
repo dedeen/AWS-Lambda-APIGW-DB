@@ -1,0 +1,50 @@
+Terraform
+==========
+api:1at1ecifs2:
+resource:7q5wi5adua
+method:fzz95y
+  method:agm-1at1ecifs2-fzz95y-POST
+
+
+
+GUI/Import
+==========
+api:43a9w6gt1h
+resource:op6c8y1jqj
+method:hfi5bv
+
+aws apigateway get-method --rest-api-id 43a9w6gt1h --resource-id op6c8y1jqj --http-method POST
+aws apigateway get-method --rest-api-id 1at1ecifs2 --resource-id 7q5wi5adua --http-method POST
+
+
+terraform import aws_api_gateway_method.imported_method 43a9w6gt1h/op6c8y1jqj/POST
+terraform import aws_api_gateway_method.imported_method 43a9w6gt1h/hfi5bv/POST
+
+
+
+####
+AWS CLI:
+aws apigateway get-method --rest-api-id 1at1ecifs2 --resource-id fzz95y --http-method POST
+aws apigateway get-resources --rest-api-id 1at1ecifs2
+
+aws apigateway get-method --rest-api-id 43a9w6gt1h --resource-id hfi5bv --http-method POST
+aws apigateway get-resources --rest-api-id 43a9w6gt1h
+
+aws apigateway get-integration --rest-api-id 43a9w6gt1h --resource-id hfi5bv --http-method POST
+
+
+
+>>>>>>>>>>>>>>>>>>>
+terraform import aws_lambda_function.imported_lambda LambdaFunctionOverHttps-js-cli
+terraform import aws_api_gateway_rest_api.imported_rest_api 43a9w6gt1h
+terraform import aws_api_gateway_resource.imported_resource 43a9w6gt1h/op6c8y1jqj
+terraform import aws_api_gateway_method.imported_method 43a9w6gt1h/op6c8y1jqj/POST
+terraform import aws_api_gateway_integration.imported_integration 43a9w6gt1h/op6c8y1jqj/POST
+
+placeholders in main.tf >>>
+resource "aws_lambda_function" "imported_lambda" {
+resource "aws_api_gateway_rest_api" "imported_rest_api" {
+resource "aws_api_gateway_resource" "imported_resource" {
+resource "aws_api_gateway_method" "imported_method" {
+resource "aws_api_gateway_integration" "imported_integration" {
+<<<<<<<<<<<<<<<<<<<<
