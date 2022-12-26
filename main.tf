@@ -117,6 +117,19 @@ resource "aws_api_gateway_integration_response" "MyDemoIntegrationResponse" {
   resource_id = aws_api_gateway_resource.DynamoDBManager.id
   rest_api_id = aws_api_gateway_rest_api.CreatedAPI.id
   status_code = aws_api_gateway_method_response.response_200.status_code
+	
+  request_parameters = {
+    "integration.request.header.X-Authorization" = "'static'"
+  }
+
+  # Transforms the incoming XML request to JSON
+  request_templates = {
+    "application/xml" = <<EOF
+  {
+   "body" : $input.json('$')
+  }
+  EOF
+    }
 }
 
   
