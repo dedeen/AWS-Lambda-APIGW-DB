@@ -112,5 +112,11 @@ resource "aws_api_gateway_method_response" "response_200" {
   status_code = "200"
 }
 
+resource "aws_api_gateway_integration_response" "MyDemoIntegrationResponse" {
+  http_method = aws_api_gateway_method.HTTPPostMethod.http_method
+  resource_id = aws_api_gateway_resource.DynamoDBManager.id
+  rest_api_id = aws_api_gateway_rest_api.CreatedAPI.id
+  status_code = aws_api_gateway_method_response.response_200.status_code
+
   
 	
