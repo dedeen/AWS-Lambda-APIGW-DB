@@ -54,73 +54,138 @@ resource "aws_iam_role_policy_attachment" "policy_attach" {
 	policy_arn 	= aws_iam_policy.policy.arn
 }
 	
-# Create lambda function (node.js) from local zipped function 
-resource "aws_lambda_function" "LambdaFunctionOverHttps" {
-	filename	= "function.zip"
-	function_name	= "LambdaFunctionOverHttps"
+# Create lambda function from local zipped function1 
+resource "aws_lambda_function" "LambdaFunction1" {
+	filename	= "function1.zip"
+	function_name	= "LambdaFunction1"
+	role		= aws_iam_role.role.arn
+	handler		= "index.handler"
+	runtime		= "nodejs16.x"
+	#environment
+}
+# Create lambda function from local zipped function2 
+resource "aws_lambda_function" "LambdaFunction2" {
+	filename	= "function2.zip"
+	function_name	= "LambdaFunction2"
 	role		= aws_iam_role.role.arn
 	handler		= "index.handler"
 	runtime		= "nodejs16.x"
 	#environment
 }
 
-# Create a REST API for Lambda function
-resource "aws_api_gateway_rest_api" "CreatedAPI" {
-  name 			= "DynamoDBOps"
-  description		= "DynamoDB-Dans_API"
+# Create a REST API for Lambda function1
+resource "aws_api_gateway_rest_api" "CreatedAPI1" {
+  name 			= "DynamoDB1"
+  description		= "DynamoDB-Dans_API1"
+  endpoint_configuration {
+    types = ["REGIONAL"]
+  }
+}
+
+# Create a REST API for Lambda function2
+resource "aws_api_gateway_rest_api" "CreatedAPI2" {
+  name 			= "DynamoDB2"
+  description		= "DynamoDB-Dans_API2"
   endpoint_configuration {
     types = ["REGIONAL"]
   }
 }
 
 # Create a resource for the REST API
-resource "aws_api_gateway_resource" "DynamoDBManager" {
-  parent_id   = aws_api_gateway_rest_api.CreatedAPI.root_resource_id
-  path_part   = "dynamodbmanager"	# must be lowercase version of resource name above
-  rest_api_id = aws_api_gateway_rest_api.CreatedAPI.id
+resource "aws_api_gateway_resource" "DynamoDBManager1" {
+  parent_id   = aws_api_gateway_rest_api.CreatedAPI1.root_resource_id
+  path_part   = "dynamodbmanager1"	# must be lowercase version of resource name above
+  rest_api_id = aws_api_gateway_rest_api.CreatedAPI1.id
 }
 
-# Create an HTTP Post method
-resource "aws_api_gateway_method" "HTTPPostMethod" {	
+# Create a resource for the REST API
+resource "aws_api_gateway_resource" "DynamoDBManager2" {
+  parent_id   = aws_api_gateway_rest_api.CreatedAPI2.root_resource_id
+  path_part   = "dynamodbmanager2"	# must be lowercase version of resource name above
+  rest_api_id = aws_api_gateway_rest_api.CreatedAPI2.id
+}
+
+# Create an HTTP Post method 1
+resource "aws_api_gateway_method" "HTTPPostMethod1" {	
   authorization = "NONE"
   http_method   = "POST"
-  resource_id   = aws_api_gateway_resource.DynamoDBManager.id
-  rest_api_id   = aws_api_gateway_rest_api.CreatedAPI.id
+  resource_id   = aws_api_gateway_resource.DynamoDBManager1.id
+  rest_api_id   = aws_api_gateway_rest_api.CreatedAPI1.id
 }
+
+# Create an HTTP Post method 2
+resource "aws_api_gateway_method" "HTTPPostMethod2" {	
+  authorization = "NONE"
+  http_method   = "POST"
+  resource_id   = aws_api_gateway_resource.DynamoDBManager2.id
+  rest_api_id   = aws_api_gateway_rest_api.CreatedAPI2.id
+}
+
 
 
 # Add the lambda integration
 #variable "myregion" {}
 #variable "accountId" {}
 
-resource "aws_api_gateway_integration" "lambda_integration" {
-  http_method = aws_api_gateway_method.HTTPPostMethod.http_method
-  resource_id = aws_api_gateway_resource.DynamoDBManager.id
-  rest_api_id = aws_api_gateway_rest_api.CreatedAPI.id
+resource "aws_api_gateway_integration" "lambda_integration1" {
+  http_method = aws_api_gateway_method.HTTPPostMethod1.http_method
+  resource_id = aws_api_gateway_resource.DynamoDBManager1.id
+  rest_api_id = aws_api_gateway_rest_api.CreatedAPI1.id
   integration_http_method = "POST"
   type        = "AWS"   # lets API GW pass req to backend lambda function
   #uri 	      = aws_lambda_function.test_lambda.invoke_arn
   #uri 	      = "${aws_lambda_function.test_lambda.invoke_arn}"
-  uri 	      = "${aws_lambda_function.LambdaFunctionOverHttps.invoke_arn}"
+  uri 	      = "${aws_lambda_function.LambdaFunction1.invoke_arn}"
   #uri 	      = "arn:aws:lambda:us-west-2:500112433998:function:LambdaFunctionOverHttps"
 }
 
-resource "aws_api_gateway_method_response" "response_200" {
-  http_method = aws_api_gateway_method.HTTPPostMethod.http_method
-  resource_id = aws_api_gateway_resource.DynamoDBManager.id
-  rest_api_id = aws_api_gateway_rest_api.CreatedAPI.id
+resource "aws_api_gateway_integration" "lambda_integration2" {
+  http_method = aws_api_gateway_method.HTTPPostMethod2.http_method
+  resource_id = aws_api_gateway_resource.DynamoDBManager2.id
+  rest_api_id = aws_api_gateway_rest_api.CreatedAPI2.id
+  integration_http_method = "POST"
+  type        = "AWS"   # lets API GW pass req to backend lambda function
+  #uri 	      = aws_lambda_function.test_lambda.invoke_arn
+  #uri 	      = "${aws_lambda_function.test_lambda.invoke_arn}"
+  uri 	      = "${aws_lambda_function.LambdaFunction2.invoke_arn}"
+  #uri 	      = "arn:aws:lambda:us-west-2:500112433998:function:LambdaFunctionOverHttps"
+}
+
+resource "aws_api_gateway_method_response" "response_200_1" {
+  http_method = aws_api_gateway_method.HTTPPostMethod1.http_method
+  resource_id = aws_api_gateway_resource.DynamoDBManager1.id
+  rest_api_id = aws_api_gateway_rest_api.CreatedAPI1.id
   status_code = "200"
   response_models = {
     "application/json" = "Empty"
     }
 }
 
-resource "aws_api_gateway_integration_response" "integration_response" {
-  depends_on  = [aws_api_gateway_integration.lambda_integration]
-  http_method = aws_api_gateway_method.HTTPPostMethod.http_method
-  resource_id = aws_api_gateway_resource.DynamoDBManager.id
-  rest_api_id = aws_api_gateway_rest_api.CreatedAPI.id
-  status_code = aws_api_gateway_method_response.response_200.status_code
+resource "aws_api_gateway_method_response" "response_200_2" {
+  http_method = aws_api_gateway_method.HTTPPostMethod2.http_method
+  resource_id = aws_api_gateway_resource.DynamoDBManager2.id
+  rest_api_id = aws_api_gateway_rest_api.CreatedAPI2.id
+  status_code = "200"
+  response_models = {
+    "application/json" = "Empty"
+    }
+}
+
+resource "aws_api_gateway_integration_response" "integration_response1" {
+  depends_on  = [aws_api_gateway_integration.lambda_integration1]
+  http_method = aws_api_gateway_method.HTTPPostMethod1.http_method
+  resource_id = aws_api_gateway_resource.DynamoDBManager1.id
+  rest_api_id = aws_api_gateway_rest_api.CreatedAPI1.id
+  status_code = aws_api_gateway_method_response.response_200_1.status_code
+}
+
+
+resource "aws_api_gateway_integration_response" "integration_response2" {
+  depends_on  = [aws_api_gateway_integration.lambda_integration2]
+  http_method = aws_api_gateway_method.HTTPPostMethod2.http_method
+  resource_id = aws_api_gateway_resource.DynamoDBManager2.id
+  rest_api_id = aws_api_gateway_rest_api.CreatedAPI2.id
+  status_code = aws_api_gateway_method_response.response_200_2.status_code
 }
 
   
