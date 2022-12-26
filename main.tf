@@ -188,10 +188,9 @@ resource "aws_api_gateway_integration_response" "integration_response2" {
   status_code = aws_api_gateway_method_response.response_200_2.status_code
 }
 
-resource "aws_lambda_permission" "lambda_permission" {
-  statement_id  = "AllowMyAPIInvoke"
+resource "aws_lambda_permission" "lambda_permission1" {
+  statement_id  = "AllowMyAPIInvoke1"
   action        = "lambda:InvokeFunction"
-  #function_name = "MyDemoFunction"
   function_name	= "LambdaFunction1"
   principal     = "apigateway.amazonaws.com"
 
@@ -200,5 +199,15 @@ resource "aws_lambda_permission" "lambda_permission" {
   source_arn = "${aws_api_gateway_rest_api.CreatedAPI1.execution_arn}/*/*/*"
 }
 
+resource "aws_lambda_permission" "lambda_permission2" {
+  statement_id  = "AllowMyAPIInvoke2"
+  action        = "lambda:InvokeFunction"
+  function_name	= "LambdaFunction2"
+  principal     = "apigateway.amazonaws.com"
+
+  # The /*/*/* part allows invocation from any stage, method and resource path
+  # within API Gateway REST API.
+  source_arn = "${aws_api_gateway_rest_api.CreatedAPI2.execution_arn}/*/*/*"
+}
   
 	
