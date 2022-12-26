@@ -98,7 +98,7 @@ resource "aws_api_gateway_integration" "lambda_integration" {
   resource_id = aws_api_gateway_resource.DynamoDBManager.id
   rest_api_id = aws_api_gateway_rest_api.CreatedAPI.id
   integration_http_method = "POST"
-  type        = "AWS_PROXY"   # lets API GW pass req to backend lambda function
+  type        = "AWS"   # lets API GW pass req to backend lambda function
   #uri 	      = aws_lambda_function.test_lambda.invoke_arn
   #uri 	      = "${aws_lambda_function.test_lambda.invoke_arn}"
   uri 	      = "${aws_lambda_function.LambdaFunctionOverHttps.invoke_arn}"
