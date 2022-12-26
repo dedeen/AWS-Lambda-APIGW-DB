@@ -59,7 +59,7 @@ resource "aws_lambda_function" "LambdaFunction1" {
 	filename	= "function1.zip"
 	function_name	= "LambdaFunction1"
 	role		= aws_iam_role.role.arn
-	handler		= "index.handler"
+	handler		= "index1.handler"
 	runtime		= "nodejs16.x"
 	#environment
 }
@@ -68,7 +68,7 @@ resource "aws_lambda_function" "LambdaFunction2" {
 	filename	= "function2.zip"
 	function_name	= "LambdaFunction2"
 	role		= aws_iam_role.role.arn
-	handler		= "index.handler"
+	handler		= "index2.handler"
 	runtime		= "nodejs16.x"
 	#environment
 }
