@@ -249,9 +249,9 @@ resource "aws_api_gateway_deployment" "deployment2" {
   stage_name  = "dev2"
 }
 
-output "rest_api2_invoke_url" {
-  value = aws_api_gateway_deployment.deployment2.invoke_url
-}
+#output "rest_api2_invoke_url" {
+#  value = aws_api_gateway_deployment.deployment2.invoke_url
+#}
 
 output "rest_api2_test_string" {
   value = "curl ${aws_api_gateway_deployment.deployment2.invoke_url}/dynamodbmanager2 "
@@ -276,9 +276,9 @@ resource "aws_api_gateway_deployment" "deployment1" {
   stage_name  = "dev1"
 }
 
-output "rest_api1_invoke_url" {
-  value = aws_api_gateway_deployment.deployment1.invoke_url
-}
+#output "rest_api1_invoke_url" {
+#  value = aws_api_gateway_deployment.deployment1.invoke_url
+#}
 
 output "rest_api1_test_string" {
   value = "curl ${aws_api_gateway_deployment.deployment1.invoke_url}/dynamodbmanager1 "
