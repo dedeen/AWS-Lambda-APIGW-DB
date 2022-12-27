@@ -209,5 +209,18 @@ resource "aws_lambda_permission" "lambda_permission2" {
   # within API Gateway REST API.
   source_arn = "${aws_api_gateway_rest_api.CreatedAPI2.execution_arn}/*/*/*"
 }
+
+# Set up a couple of dynamo DB tables for the lambda function
+resource "aws_dynamodb_table" table1 {
+  name		= "${var.table1_name}"
+  hash_key	= "${var.db_hashkey}"
+}
+
+resource "aws_dynamodb_table" table2 {
+  name		= "${var.table2_name}"
+  hash_key	= "${var.db_hashkey}"
+}
+
+
   
 	
