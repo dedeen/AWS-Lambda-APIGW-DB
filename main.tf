@@ -265,33 +265,33 @@ EOF
 
 output "delete_string_for_api2_test" { 
   value = <<EOF
--d '{"operation": "delete", "payload": {"Key": {"id": "5678EFGH"}}}
+-d '{"operation": "delete", "payload": {"Key": {"id": "5678EFGH"}}}'
 EOF
 }
   
-# Create stage & deployment for API DynamoDB2
-resource "aws_api_gateway_deployment" "deployment2" {
-  depends_on  = [aws_api_gateway_integration.lambda_integration2]
-  rest_api_id = aws_api_gateway_rest_api.CreatedAPI2.id
-  stage_name  = "dev2"
+# Create stage & deployment for API DynamoDB1
+resource "aws_api_gateway_deployment" "deployment1" {
+  depends_on  = [aws_api_gateway_integration.lambda_integration1]
+  rest_api_id = aws_api_gateway_rest_api.CreatedAPI1.id
+  stage_name  = "dev1"
 }
 
-output "rest_api2_invoke_url" {
-  value = aws_api_gateway_deployment.deployment2.invoke_url
+output "rest_api1_invoke_url" {
+  value = aws_api_gateway_deployment.deployment1.invoke_url
 }
 
-output "rest_api2_test_string" {
-  value = "curl ${aws_api_gateway_deployment.deployment2.invoke_url}/dynamodbmanager2 "
+output "rest_api1_test_string" {
+  value = "curl ${aws_api_gateway_deployment.deployment1.invoke_url}/dynamodbmanager1 "
 } 
 
-output "create_string_for_api2_test" { 
+output "create_string_for_api1_test" { 
   value = <<EOF
 -d '{"operation": "create", "payload": {"Item": {"id": "5678EFGH", "number": 15}}}'
 EOF
 }
 
-output "delete_string_for_api2_test" { 
+output "delete_string_for_api1_test" { 
   value = <<EOF
--d '{"operation": "delete", "payload": {"Key": {"id": "5678EFGH"}}}
+-d '{"operation": "delete", "payload": {"Key": {"id": "5678EFGH"}}}'
 EOF
 }	
