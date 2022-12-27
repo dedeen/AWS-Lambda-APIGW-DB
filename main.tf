@@ -241,32 +241,6 @@ resource "aws_dynamodb_table" table2 {
   }
 }
 
-/* ##################
-Test post to DBs
-{
-  "operation": "create",
-  "payload": {
-    "Item": {
-      "id": "1234ABCD",
-      "number": 5
-    }
-  }
-}
-##################
-{
-    "operation": "update",
-    "payload": {
-        "Key": {
-            "id": "1234ABCD"
-        },
-        "AttributeUpdates": {
-            "number": {
-                "Value": 10
-            }
-        }
-    }
-}
-################## */
 
 # Create stage & deployment for API DynamoDB2
 resource "aws_api_gateway_deployment" "deployment2" {
