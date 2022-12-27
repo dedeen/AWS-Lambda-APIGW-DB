@@ -272,7 +272,7 @@ Test post to DBs
 resource "aws_api_gateway_stage" "stage2" {
   stage_name	= "prod2"
   rest_api_id	= aws_api_gateway_rest_api.CreatedAPI2.id
-  deployment_id = aws_api_gateway_deployment.deployment2.id
+#  deployment_id = aws_api_gateway_deployment.deployment2.id
 }
 
 #resource "aws_api_gateway_deployment" "deployment2" {
