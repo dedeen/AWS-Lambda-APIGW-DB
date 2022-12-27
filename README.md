@@ -1,4 +1,4 @@
-# AWS Lambda Functions via APIGW to DynamoDB Tables
+# AWS Lambda Functions - APIGW/REST APIs to DynamoDB Tables
 This repo contains scripts to deploy APIGW REST APIs, with Lambda functions, IAM roles and policies, DynamoDB tables, and HTTP methods to post records via URL into the DB tables. This suite is fully functional and can be run in your account.  
 
 Dan Edeen, dan@dsblue.net, 2022 
