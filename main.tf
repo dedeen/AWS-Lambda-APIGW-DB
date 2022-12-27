@@ -281,5 +281,8 @@ resource "aws_api_gateway_deployment" "deployment2" {
   stage_name  = "dev2"
 }
 
+output "rest_api_2_invoke_url" {
+  value = aws_api_gateway_deployment.deployment2.invoke_url
+}
 
 	
