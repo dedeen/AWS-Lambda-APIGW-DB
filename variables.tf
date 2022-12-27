@@ -3,13 +3,19 @@
 	  -- variables defined in this file -- 
 */
 
-variable "dyndb_table_1_name" {
-	description     = "Table Name for LambdaFunction1"
-  default         = "dyndb-table3"
+variable "table1_name" {
+  description     	= "Table Name for LambdaFunction1"
+  default         	= "dyndb-table3"
 }
   
-variable "dyndb_table_2_name" {
-	description     = "Table Name for LambdaFunction2"
-  default         = "dyndb-table4"
+variable "table2_name" {
+  description     	= "Table Name for LambdaFunction2"
+  default         	= "dyndb-table4"
 }
+	
+variable "db_hashkey" {
+  description 		= "hash key (partition ID for db tables)"
+  default		= "id"
+}
+  
   
