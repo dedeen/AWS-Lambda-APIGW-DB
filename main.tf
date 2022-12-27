@@ -212,7 +212,7 @@ resource "aws_lambda_permission" "lambda_permission2" {
 
 # Set up a couple of dynamo DB tables for the lambda function
 resource "aws_dynamodb_table" table1 {
-  name			= "dyndb-table3"
+  name			= "dyndb-table1"
   billing_mode		= "PROVISIONED"
   read_capacity 	= 1
   write_capacity 	= 1
@@ -227,7 +227,7 @@ resource "aws_dynamodb_table" table1 {
 }
 
 resource "aws_dynamodb_table" table2 {
-  name			= "dyndb-table4"
+  name			= "dyndb-table2"
   billing_mode		= "PROVISIONED"
   read_capacity 	= 1
   write_capacity 	= 1
@@ -241,4 +241,30 @@ resource "aws_dynamodb_table" table2 {
   }
 }
 
+/* ##################
+Test post to DBs
+{
+  "operation": "create",
+  "payload": {
+    "Item": {
+      "id": "1234ABCD",
+      "number": 5
+    }
+  }
+}
+##################
+{
+    "operation": "update",
+    "payload": {
+        "Key": {
+            "id": "1234ABCD"
+        },
+        "AttributeUpdates": {
+            "number": {
+                "Value": 10
+            }
+        }
+    }
+}
+################## */
 	
