@@ -212,15 +212,19 @@ resource "aws_lambda_permission" "lambda_permission2" {
 
 # Set up a couple of dynamo DB tables for the lambda function
 resource "aws_dynamodb_table" table1 {
-  name		= "${var.table1_name}"
-  hash_key	= "${var.db_hashkey}"
+  name			= "dyndb-table3"
+  billing_mode		= "PROVISIONED"
+  read_capacity 	= 1
+  write_capacity 	= 1
+  hash_key		= "id"
+  attribute {
+    name = "id"
+    type = "S"
+  }
+  tags	= {
+    Owner = "dan-via-terraform"
+  }
 }
 
-resource "aws_dynamodb_table" table2 {
-  name		= "${var.table2_name}"
-  hash_key	= "${var.db_hashkey}"
-}
 
-
-  
 	
