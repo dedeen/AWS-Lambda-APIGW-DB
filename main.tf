@@ -269,4 +269,29 @@ output "delete_string_for_api2_test" {
 EOF
 }
   
-	
+# Create stage & deployment for API DynamoDB2
+resource "aws_api_gateway_deployment" "deployment2" {
+  depends_on  = [aws_api_gateway_integration.lambda_integration2]
+  rest_api_id = aws_api_gateway_rest_api.CreatedAPI2.id
+  stage_name  = "dev2"
+}
+
+output "rest_api2_invoke_url" {
+  value = aws_api_gateway_deployment.deployment2.invoke_url
+}
+
+output "rest_api2_test_string" {
+  value = "curl ${aws_api_gateway_deployment.deployment2.invoke_url}/dynamodbmanager2 "
+} 
+
+output "create_string_for_api2_test" { 
+  value = <<EOF
+-d '{"operation": "create", "payload": {"Item": {"id": "5678EFGH", "number": 15}}}'
+EOF
+}
+
+output "delete_string_for_api2_test" { 
+  value = <<EOF
+-d '{"operation": "delete", "payload": {"Key": {"id": "5678EFGH"}}}
+EOF
+}	
