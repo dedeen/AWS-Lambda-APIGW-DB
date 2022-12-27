@@ -286,12 +286,12 @@ output "rest_api1_test_string" {
 
 output "create_string_for_api1_test" { 
   value = <<EOF
--d '{"operation": "create", "payload": {"Item": {"id": "5678EFGH", "number": 15}}}'
+-d '{"operation": "create", "payload": {"Item": {"id": "55555555", "number": 11}}}'
 EOF
 }
 
 output "delete_string_for_api1_test" { 
   value = <<EOF
--d '{"operation": "delete", "payload": {"Key": {"id": "5678EFGH"}}}'
+-d '{"operation": "delete", "payload": {"Key": {"id": "55555555"}}}'
 EOF
 }	
