@@ -226,5 +226,19 @@ resource "aws_dynamodb_table" table1 {
   }
 }
 
+resource "aws_dynamodb_table" table2 {
+  name			= "dyndb-table4"
+  billing_mode		= "PROVISIONED"
+  read_capacity 	= 1
+  write_capacity 	= 1
+  hash_key		= "id"
+  attribute {
+    name = "id"
+    type = "S"
+  }
+  tags	= {
+    Owner = "dan-via-terraform"
+  }
+}
 
 	
