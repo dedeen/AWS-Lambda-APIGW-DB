@@ -281,8 +281,12 @@ resource "aws_api_gateway_deployment" "deployment2" {
   stage_name  = "dev2"
 }
 
-output "rest_api_2_invoke_url" {
+output "rest_api2_invoke_url" {
   value = aws_api_gateway_deployment.deployment2.invoke_url
+}
+
+output "rest_api2_test_string" {
+  value = "curl ",aws_api_gateway_deployment.deployment2.invoke_url
 }
 
 	
